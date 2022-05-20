@@ -1,15 +1,13 @@
-#Programa em Assembly - Maior Numero
-#Nome: Mateus Lemos de Freitas Barbosa
+#Programa em Assembly - Maior Numero de um vetor
+#Nome: Mateus Lemos de Freitas Barbosa, Fernando Lorenzeto Rodrigues
 #Aula 5 Lab AOC1
 
 #Observacao: A funcao print serve apenas para fins de teste.
 	
-	.data
-a:      .word 0, 11, 7, 100, 100, 5, 4, 100, 100, 100, 3, 3, 7, 100, -1 #array com os numeros
-
-	.text
+.data
+	a: .word 0, 11, 7, 100, 100, 5, 4, 100, 100, 100, 3, 3, 7, 100, -1 #array com os numeros
+.text
 	la $a0, a #endereco do array a
-	
         jal nCount #pulando pra executar a funcao
 	jal print
         
@@ -54,20 +52,19 @@ return: #salvar o maior numero e suas ocorrencias na primeira e segunda posicoes
 	#finalizar funcao
 	jr $ra
         
-      .data
-space:.asciiz  ", "          # space to insert between numbers
-head: .asciiz  "Os numeros no vetor sao:\n"
-      .text
-print:  addi   $a0, $s1, 0      # load fibonacci number for syscall
-     	li   $v0, 1           # specify Print Integer service
-     	syscall
+.data
+	space:.asciiz  ", "          # space to insert between numbers
+	head: .asciiz  "Os numeros no vetor sao:\n"
+.text
+	print:  addi   $a0, $s1, 0      # load fibonacci number for syscall
+     		li   $v0, 1           # specify Print Integer service
+     		syscall
      	
-     	la   $a0, space       # load address of spacer for syscall
-      	li   $v0, 4           # specify Print String service
-      	syscall
-      	
-      	addi   $a0, $t1, 0      # load fibonacci number for syscall
-     	li   $v0, 1           # specify Print Integer service
-     	syscall
-      
-     	jr   $ra              # return
+     		la   $a0, space       # load address of spacer for syscall
+     	 	li   $v0, 4           # specify Print String service
+     	 	syscall
+		
+     	 	addi   $a0, $t1, 0      # load fibonacci number for syscall
+     		li   $v0, 1           # specify Print Integer service
+     		syscall
+     		jr   $ra              # return
