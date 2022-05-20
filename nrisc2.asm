@@ -22,7 +22,7 @@ i_loop: load $r4, $r0 #carregando o numero do array na posicao de memoria em r4 
 	beq return, 1, $b0 #caso contrario, finaliza a execucao da funcao
 	
 	slt $r3, $r2, $b1 #maior numero menor que numero atual?
-	slt $r7, $r2, $b0 #maior numero maior que numero atual?
+	slt $r1, $r2, $b0 #maior numero maior que numero atual?
 	or $b0, $b0, $b1 #operacao "ou" com registradores t3 e t4
 	beq conditional, 1, $b0
 	
