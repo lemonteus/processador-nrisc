@@ -42,8 +42,8 @@ conditional2:
 	#incrementando o iterador do loop
 	#addi $r5, 1
 	#incrementando o endereco de memoria da proxima posicao do array
-	addi $r0, 3
-	addi $r0, 1
+	addi $r7, 3
+	addi $r7, 1
 	#retomar o loop
 	jr i_loop, 0 
 	        
