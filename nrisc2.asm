@@ -44,4 +44,5 @@ conditional2:
 	jal i_loop
 	        
         #paralizando a execucao
+return:
         halt
