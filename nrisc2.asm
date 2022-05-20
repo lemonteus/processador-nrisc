@@ -1,17 +1,19 @@
 #Programa em NRISC - Maior Numero
-#Nome: Mateus Lemos de Freitas Barbosa
+#Nome: Mateus Lemos de Freitas Barbosa, Fernando Lorenzeto Rodrigues
 #Aula 6 Lab AOC1
 
 	load $r0, array #endereco do array a
 	#copiando endereco para auxiliar $r7
 	add $r7, $r0
 	
-nCount: reset $r2 #inicialiando o numero atual
+nCount: 
+	reset $r2 #inicialiando o numero atual
 	reset $r3 #inicializando o maior numero ($s1)
 	reset $r4 #inicializando o contador do numero que aparece na iteracao ($t1)
 
-i_loop: load $r4, $r0 #carregando o numero do array na posicao de memoria em r4 ($t0)
-
+i_loop: 
+	load $r4, $r0 #carregando o numero do array na posicao de memoria em r4 ($t0)
+	
 	#resetando registradores temporarios
 	reset $r6 #$t3
 	reset $r1 #$t4
@@ -31,6 +33,7 @@ i_loop: load $r4, $r0 #carregando o numero do array na posicao de memoria em r4 
 	addi $r4, 1 
 	#caso t0 nao seja maior nem menor que s1, significa que eh igual. 
 	#nesse caso, incrementar o contador
+	
 conditional:
 	beq $r6, conditional2
 	#caso s1 seja menor, redefinir o maior numero e o contador
