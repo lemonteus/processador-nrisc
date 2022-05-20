@@ -1,6 +1,6 @@
 #Programa em Assembly - Maior Numero
 #Nome: Mateus Lemos de Freitas Barbosa
-#Aula 6 Lab AOC1
+#Aula 5 Lab AOC1
 
 #Observacao: A funcao print serve apenas para fins de teste.
 	
@@ -21,8 +21,6 @@ nCount: add $t0, $zero, $zero #corresponde ao numero atual
 	addi $s0, $a0, 0 #copiando endereco de memoria do array para $s0
 	add $s1, $zero, $zero #corresponde ao maior numero
 	add $t1, $zero, $zero #corresponde ao contador do numero que aparece na iteracao
-
-	addi $t2, $zero, 0 #inicializando e resetando iterador i
 
 i_loop: lw $t0, 0($s0) #carregando o numero do array na posicao de memoria em s0
 	#resetando registradores temporarios
@@ -45,16 +43,14 @@ conditional:
 	addi $s1, $t0, 0
 	addi $t1, $zero, 1
 conditional2:
-	#incrementando o iterador do loop
-	addi $t2, $t2, 1
 	#incrementando o endereco de memoria da proxima posicao do array
 	addi $s0, $s0, 4
 	#retomar o loop
 	j i_loop
 
-return: #salvar o maior numero e suas ocorrencias nos registradores
-	addi $s6, $s1, 0
-	addi $s7, $t1, 0
+return: #salvar o maior numero e suas ocorrencias na primeira e segunda posicoes do array respectivamente
+	sw $s1, 0($a0)
+	sw $t1, 4($a0)
 	#finalizar funcao
 	jr $ra
         
@@ -62,7 +58,7 @@ return: #salvar o maior numero e suas ocorrencias nos registradores
 space:.asciiz  ", "          # space to insert between numbers
 head: .asciiz  "Os numeros no vetor sao:\n"
       .text
-print:  addi   $a0, $s6, 0      # load fibonacci number for syscall
+print:  addi   $a0, $s1, 0      # load fibonacci number for syscall
      	li   $v0, 1           # specify Print Integer service
      	syscall
      	
@@ -70,7 +66,7 @@ print:  addi   $a0, $s6, 0      # load fibonacci number for syscall
       	li   $v0, 4           # specify Print String service
       	syscall
       	
-      	addi   $a0, $s7, 0      # load fibonacci number for syscall
+      	addi   $a0, $t1, 0      # load fibonacci number for syscall
      	li   $v0, 1           # specify Print Integer service
      	syscall
       
