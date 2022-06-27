@@ -1,19 +1,17 @@
-module registadores (PC. RegLido1, RegLido2, RegEscrito, Sobrescrever, BoolLido1, BoolLido2, BoolEscrito, DadoEscrito, Dado1, Dado2, DadoBool1, DadoBool2, Clock, Halt);
-	input PC,RegLido1, RegLido2, RegEscrito, Sobrescrever, BoolLido1, BoolLido2, BoolEscrito, DadoEscrito, Clock, Halt;
-	output reg [7:0] Dado1, Dado2, DadoBool1, DadoBool2;
+module registadores (RegLido1, RegLido2, RegEscrito, BoolLido1, BoolLido2, BoolEscrito, DadoEscrito, Dado1, Dado2, DadoBool1, DadoBool2, Clock, Halt);
+	input [2:0] RegLido1, RegLido2, RegEscrito;
+	input [1:0] BoolLido1, BoolLido2, BoolEscrito;
+	input DadoEscrito, Clock, Halt;
+	output reg [7:0] Dado1, Dado2;
+	output DadoBool1, DadoBool2;
 	
-	reg [7:0] banco [7:0];
+	reg [7:0]banco[7:0];
 
-	assign Sobrescrever = PC;
-	assign RegLido1 = banco[5:2];
-	assign RegLido2 = banco[1:0];
-	assign RegEscrito = banco[4:2];
-	assign BoolLido1 = banco[0] || banco[4];
-	assign BoolLido2 = banco[1] || banco[3];
-	assign BoolEscrito = banco[3];
+	assign dado1 = banco[RegLido1];
+	assign dado2 = banco[RegLido2];
 	
 	always begin
-		@(posedge clock)
+		@(posedge Clock)
 		if(RegLido1)
 			banco[RegLido1] <= DadoEscrito;
 		else if(RegLido2)
@@ -29,15 +27,15 @@ module registadores (PC. RegLido1, RegLido2, RegEscrito, Sobrescrever, BoolLido1
 	end
 	
 	always begin
-	@(negedge clock)
+	@(negedge Clock)
 		if(Dado1)
-			banco[0] || banco[3] = Dado1;
+			banco[0] <= Dado1;
 		else if(Dado2)
-			banco[1] || banco[4] = Dado2;
+			banco[1] <= Dado2;
 		else if(DadoBool1)
-			banco[BoolEscrito] = DadoBool1;
+			banco[BoolEscrito] <= DadoBool1;
 		else if(DadoBool2)
-			banco[BoolEscrito] = DadoBool2;
+			banco[BoolEscrito] <= DadoBool2;
 	end
 	
 endmodule
