@@ -18,14 +18,10 @@ always @(posedge c) begin
 
 	case (ULAOp)
 	
-	3'b000: result = a + b;
-	3'b001:	result = a - b;
-	3'b010:	result = a . b;
-	3'b011:	result = a & b;
-	3'b100: 
-	3'b101:
-	3'b110:
-	3'b111:
+	2'b00: result = a + b;
+	2'b01:	result = a - b;
+	2'b10:	result = a . b;
+	2'b11:	result = a & b;
 
 	endcase
 
