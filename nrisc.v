@@ -1,4 +1,4 @@
-module nrisc (Clock, memInstr, memData, dadoEscrito, readData, MemWrite, halt);
+module nrisc (Clock, memInstr, memData, dadoEscrito, readData, MemWrite, halt, pc);
 
 reg [7:0] in1;
 
@@ -7,12 +7,14 @@ input [7:0] memInstr, memData, readData, dadoEscrito;
 
 wire [7:0] BR_OutReg1, BR_OutReg2;
 wire BR_OutBool1, BR_OutBool2; 
-wire [7:0] MUX41_ULA, MUX31_ULA, pc, overridePC;
+wire [7:0] MUX41_ULA, MUX31_ULA, overridePC;
 wire [7:0] E18B1_M41, E18B1_M31, E28_M31;
 wire [7:0] UC_BR, ULAResult, S_M21PC;
 
 wire MemRead, MemWrite, Load, Beq, Slt, EscPC;
-wire [1:0] ULASrc1, ULASrc2;
+wire [1:0] ULASrc1, ULASrc2, ULAOp;
+
+output [7:0] pc;
 
 pc PC (pc, overridePC, c, halt, EscPC);
 somador S (pc, S_M21PC);

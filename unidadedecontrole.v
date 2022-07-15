@@ -1,10 +1,16 @@
 module unidadecontrole (halt, MemInstruc, MemRead, MemWrite, Load, Beq, ULAsrc1, ULAsrc2, ULAOp, Slt, EscPC);
 
    inout halt;
-   input [2:0] MemInstruc1, [1:0] MemInstruc2;
-   output reg[1:0] ULAOp;
-   output reg MemRead, MemWrite, Load, Beq, ULAsrc1, ULAsrc2, Slt, EscPC;
-	
+   input [7:0] MemInstruc;
+   wire [2:0] MemInstruc1;
+   wire [1:0] MemInstruc2;
+   output reg [1:0] ULAOp;
+   output reg MemRead, MemWrite, Load, Beq, Slt, EscPC;
+   output reg [1:0] ULAsrc1, ULAsrc2;
+
+   assign MemInstruc1 = MemInstruc[7:5];
+   assign MemInstruc2 = MemInstruc[1:0];
+
 	always @(MemInstruc)
 		begin
 			if((MemInstruc1 == 3'b000)) //add
@@ -72,7 +78,7 @@ module unidadecontrole (halt, MemInstruc, MemRead, MemWrite, Load, Beq, ULAsrc1,
 					EscPC <= 1'b0;
 				end
 
-			else if((MemInstruc1 == 3'b110) && (MemInstrc2 == 2'b00)) //reset
+			else if((MemInstruc1 == 3'b110) && (MemInstruc2 == 2'b00)) //reset
 				begin
 					MemRead <= 1'b1;
 					MemWrite <= 1'b1;
@@ -85,7 +91,7 @@ module unidadecontrole (halt, MemInstruc, MemRead, MemWrite, Load, Beq, ULAsrc1,
 					EscPC <= 1'b0;
 				end
 
-			else if((MemInstruc == 3'b110) && (MemInstrc2 == 2'b01)) //or
+			else if((MemInstruc1 == 3'b110) && (MemInstruc2 == 2'b01)) //or
 				begin 
 					MemRead <= 1'b1;
 					MemWrite <= 1'b0;
@@ -98,7 +104,7 @@ module unidadecontrole (halt, MemInstruc, MemRead, MemWrite, Load, Beq, ULAsrc1,
 					EscPC <= 1'b0;
 				end
 
-			else if((MemInstruc == 3'b110) && (MemInstrc2 == 2'b10)) //setbool
+			else if((MemInstruc1 == 3'b110) && (MemInstruc2 == 2'b10)) //setbool
 				begin
 					MemRead <= 1'b1;
 					MemWrite <= 1'b1;
@@ -111,7 +117,7 @@ module unidadecontrole (halt, MemInstruc, MemRead, MemWrite, Load, Beq, ULAsrc1,
 					EscPC <= 1'b0;
 				end
 
-			else if ((MemInstruc == 3'b110) && (MemInstrc2 == 2'b11)) //halt
+			else if ((MemInstruc1 == 3'b110) && (MemInstruc2 == 2'b11)) //halt
 				begin
 					MemRead <= 1'b0;
 					MemWrite <= 1'b0;
@@ -122,10 +128,9 @@ module unidadecontrole (halt, MemInstruc, MemRead, MemWrite, Load, Beq, ULAsrc1,
 					ULAOp <= 2'bzz; //110XXX11
 					Slt <= 1'b0;
 					EscPC <= 1'b1;
-					halt <= 1'b1;
 				end
 				
-			else if (MemInstruc == 3'b111) //beq
+			else if (MemInstruc1 == 3'b111) //beq
 				begin
 					MemRead <= 1'b1;
 					MemWrite <= 1'b0;
