@@ -1,11 +1,11 @@
-module registadores (Instr, RegLido1, RegLido2, RegEscrito, BoolLido1, BoolLido2, BoolEscrito, DadoEscrito, Dado1, Dado2, DadoBool1, DadoBool2, Clock, Halt);
+module registadores (Instr, DadoEscrito, Dado1, Dado2, DadoBool1, DadoBool2, Clock, Halt);
 	//input [2:0] RegLido1, RegLido2, RegEscrito;
 	//input [1:0] BoolLido1, BoolLido2, BoolEscrito;
 	input DadoEscrito, Clock, Halt,;
 	
-	input [3:0] RegLido1, RegEscrito;
-	input [2:0] RegLido2;
-	input [1:0] BoolLido1, BoolLido2;
+	reg [3:0] RegLido1, RegEscrito;
+	reg [2:0] RegLido2;
+	reg [1:0] BoolLido1, BoolLido2;
 	input [7:0] Instr;
 	
 	output reg [7:0] Dado1, Dado2;
