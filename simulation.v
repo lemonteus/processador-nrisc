@@ -1,22 +1,21 @@
 `timescale 1ns/1ns
 module simulation();
 
-wire[7:0] memInstr, memData, dadoEscrito, readData;
+wire[7:0] memInstr, memData, dadoEscrito, readData, pc;
 wire MemWrite;
 reg halt;
 
-integer i, j;
+integer i;
 
 clock CLK (c);
-nrisc NRISC (c, memInstr, memData, dadoEscrito, readData, MemWrite, halt);
-memory MEM (pc, BR_OutBool1, c, halt, MemRead, MemWrite, readData, memInstr);
+nrisc NRISC (c, memInstr, memData, dadoEscrito, readData, MemWrite, halt, pc);
+memory MEM (pc, dadoEscrito, c, halt, MemRead, MemWrite, readData, memInstr);
 
 initial begin 
 
 	//inicializando memoria com 0
 	for (i=0; i<MEM.depth; i=i+1) begin
-		for (j=0; j<MEM.width; j=j+1)
-			MEM.Mem[i]=8'b00000000;		
+		MEM.Mem[i]=8'b00000000;		
 	end
 
 	i = 0;

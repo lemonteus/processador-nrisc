@@ -9,15 +9,6 @@ input clock, halt, MemRead, MemWrite;
 
 output reg [7:0] readData, instr;
 
-initial begin
-
-	//debug (mostrando todo conteudo da memoria)
-	$readmemb("mem.dat", Mem, 0, depth);
-	for (i=0; i<depth; i=i+1) begin
-		$display("Mem[%0d] %b", i, Mem[i]);
-        end 
-end
-
 always begin @(posedge clock) //escritas 
 
 if (halt == 1'b0) begin
